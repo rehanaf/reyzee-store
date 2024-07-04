@@ -65,9 +65,9 @@ const Home = () => {
       </div>
 
       <div className="container mx-auto">
-        <div className="mx-4 py-4 flex flex-nowrap space-x-4 overflow-x-auto">
+        <div className="mx-4 py-4 flex flex-nowrap space-x-2 xl:space-x-4 overflow-x-auto text-xs xl:text-base">
           {category.map((item, id) =>
-            <button key={id} onClick={() => setCategoryActive(id)} className={`${categoryActive == id && 'bg-secondary text-secondary-content'} border-2 border-secondary text-secondary rounded-full px-6 py-2 whitespace-nowrap`}>{item}</button>
+            <button key={id} onClick={() => setCategoryActive(id)} className={`${categoryActive == id && 'bg-secondary text-secondary-content'} border-2 border-secondary text-secondary rounded-full px-4 xl:px-6 py-1.5 xl:py-2 whitespace-nowrap`}>{item}</button>
           )}
         </div>
       </div>

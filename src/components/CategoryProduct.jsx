@@ -5,7 +5,7 @@ const CategoryProduct = ({ list }) => {
   return(
     <>
       {list !== undefined ? list.map((item, id) =>
-      <Link key={id} to={item.name}>
+      <Link key={id} to={item.name.toLowerCase().replace(/ +/g,'-')}>
         <div className="card flex flex-col-reverse aspect-[4/6] w-full overflow-hidden shadow-xl bg-cover" style={{ backgroundImage: `url(${item.img})`}}>
           <div className="bg-black/20 px-3 py-2 text-center backdrop-blur-sm lg:py-3">
             <div className="w-full space-y-1 xl:space-y-2">

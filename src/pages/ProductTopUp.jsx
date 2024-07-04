@@ -3,8 +3,19 @@ import { useParams } from "react-router-dom"
 import ProductList from "../components/ProductList"
 import Footer from "../components/Footer"
 import image from "../assets/image"
+import Modal from "../components/Modal"
+
 const ProductTopUp = () => {
   const { game } = useParams()
+  const capitalize = (str) => {
+    let res = ''
+    for(let i = 0; i < str.length; i++) {
+
+      res += i == 0 || str.charAt(i - 1) == ' ' ? str.charAt(i).toUpperCase() : str.charAt(i)
+    }
+    return res
+  }
+
   return(
     <>
       <Navbar/>
@@ -17,8 +28,12 @@ const ProductTopUp = () => {
         <div>
 
         </div>
-        <ProductList name={game}/>
+        <ProductList name={capitalize(game.replace(/-/g, ' '))}/>
       </div>
+      <div className="container mx-auto p-4">
+        <button className="btn" onClick={()=>document.getElementById('konfirmasi').showModal()}>Konfirmasi Pesanan</button>
+      </div>
+      <Modal id="konfirmasi"/>
       <Footer/>
     </>
   )

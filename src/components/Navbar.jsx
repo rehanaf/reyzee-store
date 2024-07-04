@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import image from "../assets/image"
 
 const Navbar = () => {
@@ -33,13 +34,24 @@ const SideNav = () => {
       <input id="sidenav" type="checkbox" className="drawer-toggle" />
       <div className="drawer-side">
         <label htmlFor="sidenav" aria-label="close sidebar" className="drawer-overlay"></label>
-        <div className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-          <img src={image(20, 10)} alt="Brand" className="w-full mb-4" />
-          <ul>
-            <li><a>Sidebar Item 1</a></li>
-            <li><a>Sidebar Item 2</a></li>
-          </ul>
-        </div>
+        <nav className="menu bg-base-200 text-base-content min-h-full w-80 p-4 flex flex-col justify-between">
+          <div>
+            <img src={image(20, 10)} alt="Brand" className="w-full mb-4" />
+            <ul>
+              <li><a>Beranda</a></li>
+              <li><Link to={'/invoice/1'}>Cek Pesanan</Link></li>
+              <li><a>Gabung Reseller</a></li>
+              <li><a>Daftar Harga</a></li>
+            </ul>
+          </div>
+          <div>
+            <ul>
+              <li><a>Tema</a></li>
+              <li><a>Buat Website</a></li>
+              <li><a>Syarat dan Ketentuan</a></li>
+            </ul>
+          </div>
+        </nav>
       </div>
     </div>
   )
