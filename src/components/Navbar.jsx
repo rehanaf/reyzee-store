@@ -7,7 +7,8 @@ const Navbar = () => {
     <nav className="navbar sticky top-0 bg-primary text-primary-content z-50">
       <div className="container mx-auto">
         <div className="flex-1 ml-2 lg:ml-4">
-          <a><img src={image(20, 10)} alt="Brand" className="h-12" /></a>
+          {/* <Link to='/'><img src={image(20, 10)} alt="Brand" className="h-12" /></Link> */}
+          <Link to='/'><h1 className="font-bold text-xl">Reyzee</h1></Link>
         </div>
         <div className="flex-none">
           <label htmlFor="sidenav" className="btn btn-square btn-ghost">

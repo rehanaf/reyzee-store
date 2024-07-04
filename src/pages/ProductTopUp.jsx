@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar"
 import { useParams } from "react-router-dom"
 import ProductList from "../components/ProductList"
 import Footer from "../components/Footer"
-import image from "../assets/image"
+import bgHero from "../assets/bg-header.png"
 import Modal from "../components/Modal"
 
 const ProductTopUp = () => {
@@ -21,7 +21,7 @@ const ProductTopUp = () => {
       <Navbar/>
 
       <div className="container mx-auto p-4">
-        <img src={image(20, 10)} alt="header" loading="lazy" className="w-full rounded-xl" />
+        <img src={bgHero} alt="header" loading="lazy" className="w-full rounded-xl" />
       </div>
 
       <div className="container mx-auto p-4">

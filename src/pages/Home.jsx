@@ -1,12 +1,51 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import image from "../assets/image"
+import bgHero from "../assets/bg-header.png"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
-import { Link } from "react-router-dom"
 import CategoryProduct from "../components/CategoryProduct"
+import axios from "axios"
 
 const Home = () => {
-  const [categoryActive, setCategoryActive] = useState(0)
+  const url = import.meta.env.VITE_API_URL
+  const [data, setData] = useState({})
+  const [loading, setLoading] = useState(true)
+  const [categoryActive, setCategoryActive] = useState(1)
+
+  
+  useEffect(() => {
+    const fetchData = async() => {
+      try {
+      await axios.get(`${url}category/${categoryActive}`).then(res => {
+        setData(prevData => ({
+          ...prevData,
+          operator: res.data.data
+        }))
+      })
+    } catch(error) {
+      setData(error)
+    }
+  }
+  fetchData()
+  }, [categoryActive])
+
+  useEffect(() => {
+    const fetchCategory = async() => {
+        try {
+        await axios.get(`${url}category`).then(res => {
+          setData(prevData => ({
+            ...prevData,
+            category: res.data.data
+          }))
+        })
+      } catch(error) {
+        setData(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchCategory()
+  }, [])
   const category = ['Game', 'Pulsa', 'Paket Data', 'Voucher Game', 'Token PLN', 'E-Wallet', 'Aplikasi Premium', 'Followers', 'Bot WhatsApp', 'E-Book', 'Transfer Bank']
   const categoryProductList = {
     Game: [
@@ -56,24 +95,32 @@ const Home = () => {
         img: image(40, 60)
       },
     ]
-  }  
+  }
   return(
     <>
       <Navbar/>
       <div className="container mx-auto p-4">
-        <img src={image(20, 10)} className="w-full rounded-xl" />
+        <img src={bgHero} className="w-full rounded-xl" />
       </div>
 
-      <div className="container mx-auto">
-        <div className="mx-4 py-4 flex flex-nowrap space-x-2 xl:space-x-4 overflow-x-auto text-xs xl:text-base">
+      {/* <div className="container mx-auto">
+        <div className="mx-4 py-4 flex flex-nowrap space-x-2 xl:space-x-4 overflow-x-auto">
           {category.map((item, id) =>
-            <button key={id} onClick={() => setCategoryActive(id)} className={`${categoryActive == id && 'bg-secondary text-secondary-content'} border-2 border-secondary text-secondary rounded-full px-4 xl:px-6 py-1.5 xl:py-2 whitespace-nowrap`}>{item}</button>
+            <button key={id} onClick={() => setCategoryActive(id)} className={`${categoryActive == id && 'bg-secondary text-secondary-content'} border-2 border-secondary text-secondary rounded-full px-6 py-2 whitespace-nowrap`}>{item}</button>
+          )}
+        </div>
+      </div> */}
+
+      <div className="container mx-auto">
+        <div className="mx-4 py-4 flex flex-nowrap space-x-2 xl:space-x-4 overflow-x-auto">
+          {data.category !== undefined && data.category.sort((a, b) => a.id - b.id).map((item) =>
+            <button key={item.id} onClick={() => setCategoryActive(item.id)} className={`${categoryActive == item.id && 'bg-secondary text-secondary-content'} border-2 border-secondary text-secondary rounded-full px-6 py-2 whitespace-nowrap`}>{item.nama}</button>
           )}
         </div>
       </div>
 
       <div className="container mx-auto p-4 grid grid-cols-3 gap-x-2 gap-y-3 md:gap-x-4 md:gap-y-5 md:grid-cols-4 xl:grid-cols-5">
-        <CategoryProduct list={categoryProductList[category[categoryActive]]}/>
+        <CategoryProduct operator={data.operator}/>
       </div>
       
       <Footer/>

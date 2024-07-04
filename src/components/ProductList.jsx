@@ -55,9 +55,9 @@ const ProductList = ({ name }) => {
   return(
       <div>
 
-        <div className="py-4 flex flex-nowrap space-x-2 xl:space-x-4 overflow-x-auto text-xs xl:text-base">
+        <div className="py-4 flex flex-nowrap space-x-2 xl:space-x-4 overflow-x-auto">
           {(product[name] !== undefined && product[name].types !== undefined) && product[name].types.map((type, id) =>
-            <button key={id} onClick={() => setProductType(id)} className={`${productType == id && '!bg-secondary !text-secondary-content'} border-2 border-secondary text-secondary rounded-full px-4 xl:px-6 py-1.5 xl:py-2 whitespace-nowrap`}>{type}</button>
+            <button key={id} onClick={() => setProductType(id)} className={`${productType == id && '!bg-secondary !text-secondary-content'} border-2 border-secondary text-secondary rounded-full px-6 py-2 whitespace-nowrap`}>{type}</button>
           )}
         </div>
 
