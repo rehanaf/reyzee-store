@@ -69,7 +69,8 @@ const ProductTopUp = () => {
         <div>
           <div className="py-4 flex flex-nowrap space-x-2 xl:space-x-4 overflow-x-auto">
             {data.productType !== undefined && data.productType.map((item) =>
-              <button key={item.id} onClick={() => setProductType(item.id)} className={`${productType == item.id && '!bg-secondary !text-secondary-content'} border-2 border-secondary text-secondary rounded-full px-6 py-2 whitespace-nowrap`}>{item.nama}</button>
+              {return item.status == 1 &&
+              <button key={item.id} onClick={() => setProductType(item.id)} className={`${productType == item.id && '!bg-secondary !text-secondary-content'} border-2 border-secondary text-secondary rounded-full px-6 py-2 whitespace-nowrap`}>{item.nama}</button>}
             )}
           </div>
           <ProductList product={data.product}/>
