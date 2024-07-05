@@ -5,6 +5,7 @@ import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import CategoryProduct from "../components/CategoryProduct"
 import axios from "axios"
+import Loading from "../components/Loading"
 
 const Home = () => {
   const url = import.meta.env.VITE_API_URL
@@ -24,6 +25,8 @@ const Home = () => {
       })
     } catch(error) {
       setData(error)
+    } finally {
+      setLoading(false)
     }
   }
   fetchData()
@@ -40,8 +43,6 @@ const Home = () => {
         })
       } catch(error) {
         setData(error)
-      } finally {
-        setLoading(false)
       }
     }
     fetchCategory()
@@ -98,6 +99,7 @@ const Home = () => {
   }
   return(
     <>
+      <Loading isActive={loading}/>
       <Navbar/>
       <div className="container mx-auto p-4">
         <img src={bgHero} className="w-full rounded-xl" />

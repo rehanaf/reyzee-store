@@ -6,12 +6,13 @@ import bgHero from "../assets/bg-header.png"
 import Modal from "../components/Modal"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import Loading from "../components/Loading"
 
 const ProductTopUp = () => {
   const url = import.meta.env.VITE_API_URL
   const { id } = useParams()
   const [data, setData] = useState({})
-  const [productType, setProductType] = useState(1)
+  const [productType, setProductType] = useState()
   const [loading, setLoading] = useState(true)
 
   
@@ -45,13 +46,16 @@ const ProductTopUp = () => {
       })
     } catch(error) {
       setData(error)
+    } finally {
+      setLoading(false)
     }
   }
-  fetchProduct()
+  productType !== undefined && fetchProduct()
   }, [productType])
 
   return(
     <>
+      <Loading isActive={loading}/>
       <Navbar/>
 
       <div className="container mx-auto p-4">
