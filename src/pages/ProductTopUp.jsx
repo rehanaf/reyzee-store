@@ -4,17 +4,51 @@ import ProductList from "../components/ProductList"
 import Footer from "../components/Footer"
 import bgHero from "../assets/bg-header.png"
 import Modal from "../components/Modal"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 const ProductTopUp = () => {
-  const { game } = useParams()
-  const capitalize = (str) => {
-    let res = ''
-    for(let i = 0; i < str.length; i++) {
+  const url = import.meta.env.VITE_API_URL
+  const { id } = useParams()
+  const [data, setData] = useState({})
+  const [productType, setProductType] = useState(1)
+  const [loading, setLoading] = useState(true)
 
-      res += i == 0 || str.charAt(i - 1) == ' ' ? str.charAt(i).toUpperCase() : str.charAt(i)
+  
+  useEffect(() => {
+    const fetchProductType = async() => {
+        try {
+        await axios.get(`${url}operator/${id}`).then(res => {
+          setData(prevData => ({
+            ...prevData,
+            productType: res.data.data
+          }))
+          setProductType(res.data.data[0].id)
+        })
+      } catch(error) {
+        setData(error)
+      } finally {
+        setLoading(false)
+      }
     }
-    return res
+    fetchProductType()
+  }, [])
+  
+  useEffect(() => {
+    const fetchProduct = async() => {
+      try {
+      await axios.get(`${url}product/${productType}`).then(res => {
+        setData(prevData => ({
+          ...prevData,
+          product: res.data.data
+        }))
+      })
+    } catch(error) {
+      setData(error)
+    }
   }
+  fetchProduct()
+  }, [productType])
 
   return(
     <>
@@ -28,7 +62,14 @@ const ProductTopUp = () => {
         <div>
 
         </div>
-        <ProductList name={capitalize(game.replace(/-/g, ' '))}/>
+        <div>
+          <div className="py-4 flex flex-nowrap space-x-2 xl:space-x-4 overflow-x-auto">
+            {data.productType !== undefined && data.productType.map((item) =>
+              <button key={item.id} onClick={() => setProductType(item.id)} className={`${productType == item.id && '!bg-secondary !text-secondary-content'} border-2 border-secondary text-secondary rounded-full px-6 py-2 whitespace-nowrap`}>{item.nama}</button>
+            )}
+          </div>
+          <ProductList product={data.product}/>
+        </div>
       </div>
       <div className="container mx-auto p-4">
         <button className="btn" onClick={()=>document.getElementById('konfirmasi').showModal()}>Konfirmasi Pesanan</button>

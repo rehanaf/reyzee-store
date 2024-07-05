@@ -10,7 +10,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/invoice/:ref" element={<Invoice />} />
-        <Route path="/:game" element={<ProductTopUp />} />
+        <Route path="/product/:id" element={<ProductTopUp />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

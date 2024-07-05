@@ -8,7 +8,7 @@ const Navbar = () => {
       <div className="container mx-auto">
         <div className="flex-1 ml-2 lg:ml-4">
           {/* <Link to='/'><img src={image(20, 10)} alt="Brand" className="h-12" /></Link> */}
-          <Link to='/'><h1 className="font-bold text-xl">Reyzee</h1></Link>
+          <Link to='/'><h1 className="font-bold text-xl" onClick={() => window.scrollTo(0,0)}>Reyzee</h1></Link>
         </div>
         <div className="flex-none">
           <label htmlFor="sidenav" className="btn btn-square btn-ghost">
